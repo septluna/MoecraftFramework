@@ -1,0 +1,6 @@
+D:\project\programs\MoecraftFramework\MoecraftFramework\MoecraftFramework\bin\Debug\MoecraftFramework.dll
+D:\project\programs\MoecraftFramework\MoecraftFramework\MoecraftFramework\bin\Debug\MoecraftFramework.pdb
+D:\project\programs\MoecraftFramework\MoecraftFramework\MoecraftFramework\bin\Debug\MoecraftFramework.tlb
+D:\project\programs\MoecraftFramework\MoecraftFramework\MoecraftFramework\obj\Debug\MoecraftFramework.csprojResolveAssemblyReference.cache
+D:\project\programs\MoecraftFramework\MoecraftFramework\MoecraftFramework\obj\Debug\MoecraftFramework.dll
+D:\project\programs\MoecraftFramework\MoecraftFramework\MoecraftFramework\obj\Debug\MoecraftFramework.pdb
