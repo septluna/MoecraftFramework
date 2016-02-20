@@ -21,13 +21,23 @@ namespace 测试用窗口
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (filePath != "none")
+            bool notInDebug = true;
+            #if DEBUG
+            notInDebug = false;
+            #endif
+            if (notInDebug == false)
+            {
+                MoeScript.Explainer dbex = new MoeScript.Explainer();
+                dbex.scriptExplaine(@"D:\000.moe");
+                pictureBox1.Image = canvas.bmp;
+            }
+            if (filePath != "none" && notInDebug)
             {
                 MoeScript.Explainer ex = new MoeScript.Explainer();
                 ex.scriptExplaine(filePath);
                 pictureBox1.Image = canvas.bmp;
             }
-            else
+            if (filePath =="none" && notInDebug)
             {
                 OpenFileDialog ofDialog = new OpenFileDialog();
                 ofDialog.AddExtension = true;
@@ -47,5 +57,6 @@ namespace 测试用窗口
                 }
             }
         }
+
     }
 }

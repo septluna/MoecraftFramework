@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-
 
 namespace MoecraftFramework
 {
@@ -90,8 +90,6 @@ namespace MoecraftFramework
             {
                 switch (Explainer.logicObject.name)
                 {
-                    default:
-                        break;
                     case "文件读取":
                         ioInterface.moeReader rd = new ioInterface.moeReader();
                         rd.setValues(Explainer.logicObject.atb);
@@ -114,18 +112,39 @@ namespace MoecraftFramework
                         break;
                     case "绘制方形":
                         canvas.moeRectangle cvr = new canvas.moeRectangle();
+                        cvr.graphType = "方形";
                         cvr.setValues(Explainer.logicObject.atb);
                         cvr.draw();
                         break;
                     case "绘制圆形":
-                        canvas.moeEllipse cve = new canvas.moeEllipse();
+                        canvas.moeRectangle cve = new canvas.moeRectangle();
+                        cve.graphType = "圆形";
                         cve.setValues(Explainer.logicObject.atb);
                         cve.draw();
                         break;
                     case "绘制直线":
                         canvas.moeLine cvl = new canvas.moeLine();
+                        cvl.graphType = "直线";
                         cvl.setValues(Explainer.logicObject.atb);
                         cvl.draw();
+                        break;
+                    case "绘制弧线":
+                        canvas.moeRectangle cva = new canvas.moeRectangle();
+                        cva.graphType = "弧线";
+                        cva.setValues(Explainer.logicObject.atb);
+                        cva.draw();
+                        break;
+                    case "绘制饼形":
+                        canvas.moeRectangle cvp = new canvas.moeRectangle();
+                        cvp.graphType = "饼形";
+                        cvp.setValues(Explainer.logicObject.atb);
+                        cvp.draw();
+                        break;
+                    case "绘制曲线":
+                        canvas.moeLine cvb = new canvas.moeLine();
+                        cvb.graphType = "曲线";
+                        cvb.setValues(Explainer.logicObject.atb);
+                        cvb.draw();
                         break;
                     case "绘制文本":
                         canvas.moeText cvt = new canvas.moeText();
@@ -221,20 +240,37 @@ namespace MoecraftFramework
             }            
             return text;
         }
+        public static List<string> getString(string str1)
+        {
+            int startIndex = 0;
+            int endIndex = str1.IndexOf("=", 0);
+            List<string> lst = new List<string>();
+            if (endIndex > 0)
+            {
+                string atbName = str1.Substring(0, endIndex);
+                lst.Add(atbName);
+                startIndex = str1.IndexOf("\"", 0);
+                endIndex = str1.IndexOf("\"", startIndex + 1);
+                string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
+                value = MoeScript.clsHandle(value);
+                lst.Add(value);
+            }
+            return lst;
+        }
         #endregion
     }
     public static class canvas
     {
         public static Bitmap bmp = new Bitmap(100, 100);
-        public static Graphics gf = Graphics.FromImage(bmp);
+        public static Graphics gf = Graphics.FromImage(bmp);                
         static string path = "无路径";
         public class moeCanvas
         {
-            int startIndex;
-            int endIndex;
+            int endIndex;            
             public void reNew()
             {
                 gf = Graphics.FromImage(bmp);
+                gf.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             }
             public void setValues(List<string> atb)
             {
@@ -248,13 +284,8 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
@@ -312,14 +343,8 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value.Replace("，", ",");
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
@@ -373,7 +398,6 @@ namespace MoecraftFramework
             }
             public void setValues(List<string> atb)
             {
-
                 #region 处理文本的属性
                 foreach (var str1 in atb)
                 {
@@ -382,14 +406,8 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value.Replace("，", ",");
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
@@ -440,15 +458,27 @@ namespace MoecraftFramework
         {
             Point position = new Point(0, 0);
             Point position1 = new Point(0, 0);
+            Point position2 = new Point(0, 0);
+            Point position3 = new Point(0, 0);
+            Point position4 = new Point(0, 0);
             Size size = new Size(10, 10);
             Size size1 = new Size(10, 10);
             Pen p = new Pen(Color.Black);
             Brush bs = new SolidBrush(Color.Black);
             int startIndex;
             int endIndex;
+            public string graphType;
             public void draw()
             {
-                gf.DrawLine(p, position, position1);
+                switch (graphType)
+                {
+                    case "直线":
+                        gf.DrawLine(p, position1, position4);
+                        break;
+                    case "曲线":
+                        gf.DrawBezier(p, position1, position2, position3, position4);
+                        break;
+                }
             }
             public void setValues(List<string> atb)
             {
@@ -459,14 +489,8 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性                                
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value.Replace("，", ",");
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
@@ -475,101 +499,26 @@ namespace MoecraftFramework
                                 int X = 0;
                                 int Y = 0;
                                 int.TryParse(pos[0], out X);
-                                position.X = X;
-                                int.TryParse(pos[1], out Y);
-                                position.Y = Y;
-                                int.TryParse(pos[2], out X);
                                 position1.X = X;
-                                int.TryParse(pos[3], out Y);
-                                position1.Y = Y;
-                                break;
-                            case "颜色":
-                                if (value.IndexOf("#", 0) >= 0)
-                                {
-                                    p.Color = ColorTranslator.FromHtml(value);
-                                }
-                                else
-                                {
-                                    p.Color = Color.FromName(value);
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-                        #endregion
-                    }
-                }
-            }
-        }
-        public class moeEllipse
-        {
-            Point position = new Point(0, 0);
-            Point position1 = new Point(0, 0);
-            Size size = new Size(10, 10);
-            Size size1 = new Size(10, 10);
-            Pen p = new Pen(Color.Black);
-            Brush bs = new SolidBrush(Color.Black);
-            bool fill = false;
-            int startIndex;
-            int endIndex;
-            public void draw()
-            {
-                Rectangle rec = new Rectangle(position, size);
-                if (fill)
-                {
-                    Rectangle rec1 = new Rectangle(position, size1);
-                    gf.FillEllipse(bs, rec1);
-                    fill = false;
-                }
-                gf.DrawEllipse(p, rec);
-            }
-            public void setValues(List<string> atb)
-            {
-                foreach (var str1 in atb)
-                {
-                    //判断是否需要赋值
-                    endIndex = str1.IndexOf("=", 0);
-                    if (endIndex > 0)
-                    {
-                        #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value.Replace("，", ",");
-                        value = MoeScript.clsHandle(value);
-                        //设置属性
-                        switch (atbName)
-                        {
-                            case "位置":
-                                string[] pos = value.Split(',');
-                                int X = 0;
-                                int Y = 0;
-                                int.TryParse(pos[0], out X);
-                                position.X = X;
                                 int.TryParse(pos[1], out Y);
-                                position.Y = Y;
+                                position1.Y = Y;
+                                int.TryParse(pos[2], out X);
+                                position4.X = X;
+                                int.TryParse(pos[3], out Y);
+                                position4.Y = Y;
                                 break;
-                            case "大小":
-                                string[] sz = value.Split(',');
-                                int ht = 10;
-                                int wd = 10;
-                                int.TryParse(sz[0], out wd);
-                                size.Width = wd;
-                                int.TryParse(sz[1], out ht);
-                                size.Height = ht;
-                                break;
-                            case "圆心":
-                                //pos = value.Split(',');X = 0;Y = 0;
-                                //int.TryParse(pos[0], out X);position.X = X;
-                                //int.TryParse(pos[1], out Y);position.Y = Y;
-                                break;
-                            case "半径":
-                                //rad = 10;
-                                //int.TryParse(value, out rad);
-                                //size = new Size(rad * 2, rad * 2);
+                            case "扭曲":
+                                string[] pos2 = value.Split(',');
+                                int nX = 0;
+                                int nY = 0;
+                                int.TryParse(pos2[0], out nX);
+                                position2.X = nX;
+                                int.TryParse(pos2[1], out nY);
+                                position2.Y = nY;
+                                int.TryParse(pos2[2], out nX);
+                                position3.X = nX;
+                                int.TryParse(pos2[3], out nY);
+                                position3.Y = nY;
                                 break;
                             case "颜色":
                                 if (value.IndexOf("#", 0) >= 0)
@@ -580,28 +529,6 @@ namespace MoecraftFramework
                                 {
                                     p.Color = Color.FromName(value);
                                 }
-                                break;
-                            case "填充色":
-                                Color cltp = Color.Black;
-                                if (value.IndexOf("#", 0) >= 0)
-                                {
-                                    cltp = ColorTranslator.FromHtml(value);
-                                }
-                                else
-                                {
-                                    cltp = Color.FromName(value);
-                                }
-                                bs = new SolidBrush(cltp);
-                                break;
-                            case "填充":
-                                fill = true;
-                                string[] tcsz = value.Split(',');
-                                int tcht = 10;
-                                int tcwd = 10;
-                                int.TryParse(tcsz[0], out tcwd);
-                                size1.Width = tcwd;
-                                int.TryParse(tcsz[1], out tcht);
-                                size1.Height = tcht;
                                 break;
                             default:
                                 break;
@@ -620,18 +547,60 @@ namespace MoecraftFramework
             Pen p = new Pen(Color.Black);
             Brush bs = new SolidBrush(Color.Black);
             bool fill = false;
-            int startIndex;
+            bool transit = false;
+            string fillType = "左上";
+            LinearGradientMode transitType = LinearGradientMode.Horizontal;
+            Color cltp = Color.Black;
+            Color clts = Color.Black;
+            Point transitStart = new Point(0, 0);
+            Size transitSize = new Size(0, 0);
             int endIndex;
+            float startAngle;
+            float sweepAngle;
+            public string graphType;
+            public bool toPie = false;
             public void draw()
             {
                 Rectangle rec = new Rectangle(position, size);
                 if (fill)
                 {
-                    Rectangle rec1 = new Rectangle(position, size1);
-                    gf.FillRectangle(bs, rec1);
+                    getOrigin(fillType);
+                    Rectangle rec1 = new Rectangle(position1, size1);
+                    if (transit)
+                    {
+                        Rectangle rec2 = new Rectangle(transitStart, transitSize);
+                        bs = new LinearGradientBrush(rec2, cltp, clts,transitType);
+                    }
+                    switch (graphType)
+                    {
+                        case "圆形":
+                            gf.FillEllipse(bs, rec1);
+                            break;
+                        case "方形":
+                            gf.FillRectangle(bs, rec1);
+                            break;
+                        case "饼形":
+                            gf.FillPie(bs, rec1, startAngle, sweepAngle);              
+                            break;
+                    }
                     fill = false;
+                    transit = false;
                 }
-                gf.DrawRectangle(p, rec);
+                switch (graphType)
+                {
+                    case "圆形":
+                        gf.DrawEllipse(p, rec);
+                        break;
+                    case "方形":
+                        gf.DrawRectangle(p, rec);
+                        break;
+                    case "饼形":
+                        gf.DrawPie(p, rec, startAngle, sweepAngle);
+                        break;
+                    case "弧线":
+                        gf.DrawArc(p, rec, startAngle, sweepAngle);
+                        break;
+                }
             }
             public void setValues(List<string> atb)
             {
@@ -642,14 +611,8 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value.Replace("，", ",");
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
@@ -671,6 +634,13 @@ namespace MoecraftFramework
                                 int.TryParse(sz[1], out ht);
                                 size.Height = ht;
                                 break;
+                            case "角度":
+                                string[] de = value.Split(',');
+                                startAngle = 0;
+                                sweepAngle = 30;
+                                float.TryParse(de[0], out startAngle);
+                                float.TryParse(de[1], out sweepAngle);
+                                break;
                             case "颜色":
                                 if (value.IndexOf("#", 0) >= 0)
                                 {
@@ -682,7 +652,6 @@ namespace MoecraftFramework
                                 }
                                 break;
                             case "填充色":
-                                Color cltp = Color.Black;
                                 if (value.IndexOf("#", 0) >= 0)
                                 {
                                     cltp = ColorTranslator.FromHtml(value);
@@ -692,6 +661,17 @@ namespace MoecraftFramework
                                     cltp = Color.FromName(value);
                                 }
                                 bs = new SolidBrush(cltp);
+                                break;
+                            case "渐变色":
+                                transit = true;
+                                if (value.IndexOf("#", 0) >= 0)
+                                {
+                                    clts = ColorTranslator.FromHtml(value);
+                                }
+                                else
+                                {
+                                    clts = Color.FromName(value);
+                                }
                                 break;
                             case "填充":
                                 fill = true;
@@ -703,12 +683,74 @@ namespace MoecraftFramework
                                 int.TryParse(tcsz[1], out tcht);
                                 size1.Height = tcht;
                                 break;
+                            case "填充方式":
+                                fillType = value;
+                                break;
+                            case "渐变方式":
+                                switch (value)
+                                {
+                                    case "水平":
+                                        transitType = LinearGradientMode.Vertical;
+                                        break;
+                                    case "垂直":
+                                        transitType = LinearGradientMode.Horizontal;
+                                        break;
+                                    case "反斜向":
+                                        transitType = LinearGradientMode.BackwardDiagonal;
+                                        break;
+                                    case "斜向":
+                                        transitType = LinearGradientMode.ForwardDiagonal;
+                                        break;
+                                }
+                                break;
+                            case "渐变起点":
+                                string[] ts = value.Split(',');
+                                int tstemp = 0;
+                                int.TryParse(ts[0], out tstemp);
+                                transitStart.X = tstemp;
+                                int.TryParse(ts[1], out tstemp);
+                                transitStart.Y = tstemp;
+                                break;
+                            case "渐变区域":
+                                string[] te = value.Split(',');
+                                int tetemp = 0;
+                                int.TryParse(te[0], out tetemp);
+                                transitSize.Width = tetemp;
+                                int.TryParse(te[1], out tetemp);
+                                transitSize.Height = tetemp;
+                                break;
                             default:
                                 break;
                         }
                         #endregion
                     }
                 }
+            }
+            void getOrigin(string type)
+            {
+                switch (type)
+                {
+                    case "左上":
+                        position1.X = position.X;
+                        position1.Y = position.Y;
+                        break;
+                    case "右上":
+                        position1.X = position.X + size.Width - size1.Width;
+                        position1.Y = position.Y;
+                        break;
+                    case "右下":
+                        position1.X = position.X + size.Width - size1.Width;
+                        position1.Y = position.Y + size.Height - size1.Height;
+                        break;
+                    case "左下":
+                        position1.X = position.X;
+                        position1.Y = position.Y + size.Height - size1.Height;
+                        break;
+                    case "中心":
+                        position1.X = position.X + size.Width / 2 - size1.Width / 2;
+                        position1.Y = position.Y + size.Height / 2 - size1.Height / 2;
+                        break;
+                }                
             }
         }
         public class moeSave
@@ -724,19 +766,14 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value.Replace("，", ",");
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
                             case "路径":
                                 bmp.Save(value);
+                                
                                 break;
                             default:
                                 break;
@@ -768,13 +805,8 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
@@ -832,13 +864,8 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
@@ -882,13 +909,8 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
@@ -955,7 +977,6 @@ namespace MoecraftFramework
             }
             public static void estimate(List<string> atb)
             {
-                int startIndex;
                 int endIndex;
                 string A = "";
                 int a = 0;
@@ -970,13 +991,8 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
@@ -1060,7 +1076,6 @@ namespace MoecraftFramework
             }
             public static void estimate(List<string> atb)
             {
-                int startIndex;
                 int endIndex;
                 int tryTimes = 0;//这是声明执行次数
                 foreach (var str1 in atb)
@@ -1071,13 +1086,8 @@ namespace MoecraftFramework
                     if (endIndex > 0)
                     {
                         #region 设置逻辑对象属性
-                        //获取属性名
-                        string atbName = str1.Substring(0, endIndex);
-                        //获取属性值
-                        startIndex = str1.IndexOf("\"", 0);
-                        endIndex = str1.IndexOf("\"", startIndex + 1);
-                        string value = str1.Substring(startIndex + 1, endIndex - startIndex - 1);
-                        value = MoeScript.clsHandle(value);
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
                         //设置属性
                         switch (atbName)
                         {
