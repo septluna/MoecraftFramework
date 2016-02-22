@@ -1,0 +1,8 @@
+html, body, div, iframe, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4, table, th, td, input, button, select, textarea {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    background-color:#E4E4E4;
+	color:#373737;
+}

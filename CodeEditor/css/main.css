@@ -1,1 +1,13 @@
-﻿
+﻿#wrapper {
+	margin: 100px auto;
+	width: 800px;
+	height: 500px;
+}
+
+#edit_window {
+	height: 480px;
+	width: 760px;
+	padding: 10px 20px;
+	font-family: Consolas, courier, "微软雅黑", "黑体";
+	font-size: 16px;
+}
