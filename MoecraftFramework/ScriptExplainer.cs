@@ -12,7 +12,7 @@ namespace MoecraftFramework
     {
         #region 声明属性
         static string path { get; set; }
-        static string[] script { get; set; }//这是用来储存脚本的数组
+        internal static string[] script { get; set; }//这是用来储存脚本的数组
         internal static int mainIndicator { get; set; }//这是逻辑指针
         //脚本变量字典
         public static Dictionary<string, string> varsdic = new Dictionary<string, string>();
@@ -72,6 +72,8 @@ namespace MoecraftFramework
                     }
                     flowControl.moeIf.estimate(logicObject.atb);
                     flowControl.moeIf.flow(logicObject.name);
+                    flowControl.moeFunction.estimate(Explainer.logicObject.atb);
+                    flowControl.moeFunction.flow(Explainer.logicObject.name);
                     if (flowControl.moeIf.flag)
                     {
                         Excuter.excute();
@@ -315,7 +317,6 @@ namespace MoecraftFramework
             Size size1 = new Size(10, 10);
             Pen p = new Pen(Color.Black);
             Brush bs = new SolidBrush(Color.Black);
-            int startIndex;
             int endIndex;
             static int rtDegree = 0;
             static Rectangle cut = new Rectangle();
@@ -387,7 +388,6 @@ namespace MoecraftFramework
             Size size1 = new Size(10, 10);
             Pen p = new Pen(Color.Black);
             Brush bs = new SolidBrush(Color.Black);
-            int startIndex;
             int endIndex;
             string words = "未定义";
             static FontFamily ff = new FontFamily("宋体");
@@ -465,7 +465,6 @@ namespace MoecraftFramework
             Size size1 = new Size(10, 10);
             Pen p = new Pen(Color.Black);
             Brush bs = new SolidBrush(Color.Black);
-            int startIndex;
             int endIndex;
             public string graphType;
             public void draw()
@@ -755,7 +754,6 @@ namespace MoecraftFramework
         }
         public class moeSave
         {
-            int startIndex;
             int endIndex;
             public void setValues(List<string> atb)
             {
@@ -788,7 +786,6 @@ namespace MoecraftFramework
     {
         public class moeReader
         {
-            int startIndex;
             int endIndex;
             string varname = "变量" + MoeScript.varsdic.Count;
             string strpath = "";
@@ -848,7 +845,6 @@ namespace MoecraftFramework
         }
         public class moeWriter
         {
-            int startIndex;
             int endIndex;
             string strpath = "";
             string strsection = "";
@@ -895,7 +891,6 @@ namespace MoecraftFramework
         }
         public class moeVar
         {
-            int startIndex;
             int endIndex;
             string tname;
             string tvalue;
@@ -919,8 +914,6 @@ namespace MoecraftFramework
                                 break;
                             case "内容":
                                 tvalue = value;
-                                break;
-                            default:
                                 break;
                         }
                         #endregion
@@ -952,6 +945,7 @@ namespace MoecraftFramework
                 switch (keyword)
                 {
                     default:
+
                         break;
                     case "否则":
                         if (result.Count != 0)
@@ -1092,8 +1086,106 @@ namespace MoecraftFramework
                         switch (atbName)
                         {
                             case "次数":
-                                int.TryParse(value,out tryTimes);
-                                times.Add(tryTimes);
+                                if (MoeScript.Explainer.logicObject.name =="循环")
+                                {
+                                    int.TryParse(value, out tryTimes);
+                                    times.Add(tryTimes);
+                                }
+                                break;
+                        }
+                        #endregion
+                    }
+                }
+            }
+        }
+        internal class moeFunction
+        {
+            public static List<int> index = new List<int>();//这里是返回点
+            public static Dictionary<string, int> fDic = new Dictionary<string, int>();
+            static string fName;
+            static int jmp =0;
+            public static void flow(string keyword)
+            {
+                string tname = fName;
+                int tvalue = MoeScript.mainIndicator;
+                switch (keyword)
+                {
+                    case "声明方法":
+                        moeIf.flag = false;
+                        if (moeFor.index.Count == 0 || moeIf.result.Count == 0)
+                        {
+                            if (fDic.ContainsKey(tname))
+                            {
+                                //方法名重复                                
+                                fDic[tname] = tvalue;
+                            }
+                            else
+                            {
+                                fDic.Add(tname, tvalue);
+                            }
+                            tvalue = 0;
+                        }
+                        break;
+                    case "调用方法":
+                        if (moeIf.flag)
+                        {
+                            if (fDic.ContainsKey(tname))
+                            {
+                                jmp = fDic[tname];
+                                index.Add(MoeScript.mainIndicator);
+                                if (jmp != 0)
+                                {
+                                    MoeScript.mainIndicator = jmp;
+                                }
+                                jmp = 0;
+                            }
+                            else
+                            {
+                                for (int i = MoeScript.mainIndicator; i < MoeScript.script.Length; i++)
+                                {
+                                    if (MoeScript.script[i].IndexOf("声明方法") > 0)
+                                    {
+                                        if (MoeScript.script[i].IndexOf("名字=" + "\"" + tname + "\"") > 0)
+                                        {
+                                            MoeScript.mainIndicator = i;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "返回":
+                        if (index.Count != 0)
+                        {
+                            MoeScript.mainIndicator = index[index.Count - 1];
+                            index.Remove(index[index.Count - 1]);
+                        }
+                        else
+                        {
+                            moeIf.flag = true;
+                        }
+                        break;
+                }
+            }
+            public static void estimate(List<string> atb)
+            {
+                int endIndex;
+                foreach (var str1 in atb)
+                {
+                    //初始化预设属性值
+                    //判断是否需要赋值
+                    endIndex = str1.IndexOf("=", 0);
+                    if (endIndex > 0)
+                    {
+                        #region 设置逻辑对象属性
+                        string atbName = MoeScript.getString(str1)[0];
+                        string value = MoeScript.getString(str1)[1];
+                        //设置属性
+                        switch (atbName)
+                        {
+                            case "名字":
+                                fName = value;
                                 break;
                         }
                         #endregion
