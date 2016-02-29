@@ -7,6 +7,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoecraftFramework", "Moecra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "测试用窗口", "测试用窗口\测试用窗口.csproj", "{D14E36AD-D2BF-497B-95F1-8F0F8733062A}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CodeEditor", "CodeEditor\", "{325CBABF-5F36-40E1-9481-79BABFB99D1F}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_35623"
+		Debug.AspNetCompiler.PhysicalPath = "CodeEditor\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_35623\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_35623"
+		Release.AspNetCompiler.PhysicalPath = "CodeEditor\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_35623\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "35623"
+		SlnRelativePath = "CodeEditor\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +72,22 @@ Global
 		{D14E36AD-D2BF-497B-95F1-8F0F8733062A}.Release|x64.Build.0 = Release|Any CPU
 		{D14E36AD-D2BF-497B-95F1-8F0F8733062A}.Release|x86.ActiveCfg = Release|Any CPU
 		{D14E36AD-D2BF-497B-95F1-8F0F8733062A}.Release|x86.Build.0 = Release|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Debug|ARM.Build.0 = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Debug|x64.Build.0 = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Debug|x86.Build.0 = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Release|ARM.ActiveCfg = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Release|ARM.Build.0 = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Release|x64.ActiveCfg = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Release|x64.Build.0 = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Release|x86.ActiveCfg = Debug|Any CPU
+		{325CBABF-5F36-40E1-9481-79BABFB99D1F}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
