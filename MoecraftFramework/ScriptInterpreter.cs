@@ -109,6 +109,11 @@ namespace MoecraftFramework
                         sv.setValues(Interpreter.logicObject.atb);
                         sv.set();
                         break;
+                    case "数组排序":
+                        ioInterface.moeVar ss = new ioInterface.moeVar();
+                        ss.setValues(Interpreter.logicObject.atb);
+                        ss.setssort();
+                        break;
                     case "新建画布":
                         canvas.moeCanvas cvc = new canvas.moeCanvas();
                         cvc.setValues(Interpreter.logicObject.atb);
@@ -915,6 +920,7 @@ namespace MoecraftFramework
             int endIndex;
             string tname;
             string tvalue;
+            List<string> temp = new List<string>();
             public void setValues(List<string> atb)
             {
                 foreach (var str1 in atb)
@@ -950,6 +956,22 @@ namespace MoecraftFramework
                 else
                 {
                     MoeScript.varsdic.Add(tname, tvalue);
+                }
+            }
+            public void setssort()
+            {
+                int i = 1;
+                while (MoeScript.varsdic.ContainsKey(tname + i))
+                {
+                    temp.Add(MoeScript.varsdic[tname + i]);
+                    i++;
+                }
+                temp.Sort();
+                i = 1;
+                foreach (var item in temp)
+                {
+                    MoeScript.varsdic[tname + i] = item;
+                    i++;
                 }
             }
         }

@@ -9,3 +9,4 @@ D:\git crossover\MoecraftFramework\bin\Debug\MoecraftFramework.pdb
 D:\git crossover\MoecraftFramework\bin\Debug\MoecraftFramework.tlb
 D:\git crossover\MoecraftFramework\obj\Debug\MoecraftFramework.dll
 D:\git crossover\MoecraftFramework\obj\Debug\MoecraftFramework.pdb
+D:\git crossover\MoecraftFramework\obj\Debug\MoecraftFramework.csprojResolveAssemblyReference.cache
