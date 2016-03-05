@@ -62,7 +62,7 @@ namespace MoecraftFramework
                             cmd = cmd.Replace(logicObject.name, "");
                             cmd = cmd.Replace("@01@" + rdGuid + "@", "<");
                             cmd = cmd.Replace("@02@" + rdGuid + "@", ">");
-                            cmd = cmd.Replace("@03@" + rdGuid + "@", ">");
+                            cmd = cmd.Replace("@03@" + rdGuid + "@", "\\");
                             logicObject.atb = getRegs("[^\" ]+=\"[^\"]+\"", cmd);
                         }
                         else
@@ -920,9 +920,12 @@ namespace MoecraftFramework
             int endIndex;
             string tname;
             string tvalue;
+            char split = '@';
+            string[] sLine;
             List<string> temp = new List<string>();
             public void setValues(List<string> atb)
             {
+                temp.Clear();
                 foreach (var str1 in atb)
                 {
                     //初始化预设属性值
@@ -942,20 +945,44 @@ namespace MoecraftFramework
                             case "内容":
                                 tvalue = value;
                                 break;
-                        }
+                            case "分隔符":
+                                split = value.ToCharArray()[0];
+                                break;
+                        }                    
                         #endregion
                     }
                 }
             }
             public void set()
             {
-                if (MoeScript.varsdic.ContainsKey(tname))
+                sLine = tvalue.Split(split);
+                temp.AddRange(sLine);
+                int i = 1;
+                if (split == '@')
                 {
-                    MoeScript.varsdic[tname] = tvalue;
+                    if (MoeScript.varsdic.ContainsKey(tname))
+                    {
+                        MoeScript.varsdic[tname] = tvalue;
+                    }
+                    else
+                    {
+                        MoeScript.varsdic.Add(tname, tvalue);
+                    }
                 }
                 else
                 {
-                    MoeScript.varsdic.Add(tname, tvalue);
+                    foreach (var item in temp)
+                    {
+                        if (MoeScript.varsdic.ContainsKey(tname))
+                        {
+                            MoeScript.varsdic[tname + i] = item;
+                        }
+                        else
+                        {
+                            MoeScript.varsdic.Add(tname + i, item);
+                        }
+                        i++;
+                    }
                 }
             }
             public void setssort()
