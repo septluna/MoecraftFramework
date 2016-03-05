@@ -20,3 +20,4 @@ D:\git crossover\测试用窗口\obj\Debug\测试用窗口.csprojResolveAssembly
 D:\git crossover\测试用窗口\obj\Debug\测试用窗口.Form1.resources
 D:\git crossover\测试用窗口\obj\Debug\测试用窗口.Properties.Resources.resources
 D:\git crossover\测试用窗口\obj\Debug\测试用窗口.csproj.GenerateResource.Cache
+D:\git crossover\测试用窗口\obj\Debug\测试用窗口.mainForm.resources

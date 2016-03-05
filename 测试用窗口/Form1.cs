@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MoecraftFramework;
@@ -27,14 +28,14 @@ namespace 测试用窗口
             #endif
             if (notInDebug == false)
             {
-                MoeScript.Explainer dbex = new MoeScript.Explainer();
-                dbex.scriptExplaine(@"D:\000.moe");
+                MoeScript.Interpreter dbex = new MoeScript.Interpreter();
+                dbex.ScriptAnalyze(@"D:\000.moe");
                 pictureBox1.Image = canvas.bmp;
             }
             if (filePath != "none" && notInDebug)
             {
-                MoeScript.Explainer ex = new MoeScript.Explainer();
-                ex.scriptExplaine(filePath);
+                MoeScript.Interpreter ex = new MoeScript.Interpreter();
+                ex.ScriptAnalyze(filePath);
                 pictureBox1.Image = canvas.bmp;
             }
             if (filePath =="none" && notInDebug)
@@ -58,5 +59,18 @@ namespace 测试用窗口
             }
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            test();
+        }
+
+        public void test ()
+        {
+            while (true)
+            {
+                this.Text = DateTime.Now.ToString("hh:mm:ss");
+                Thread.Sleep(100);
+            }       
+        }
     }
 }
