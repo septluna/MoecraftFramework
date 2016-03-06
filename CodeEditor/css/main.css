@@ -11,7 +11,8 @@
 }
 
 #code_hinting {
-	display: none;
+	visibility: hidden;
+	opacity: 0;
 	position: fixed;
 	height: 120px;
 	width: 100px;
@@ -21,4 +22,6 @@
 	font-family: Consolas, courier, "微软雅黑", "黑体";
 	font-size: 15px;
 	text-align: left;
+	transition: all 0.2s ease;
+	overflow: auto;
 }
