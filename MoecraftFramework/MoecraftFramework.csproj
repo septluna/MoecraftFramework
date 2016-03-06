@@ -50,9 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
-    <Compile Include="Entity.cs" />
     <Compile Include="FileHandle.cs" />
     <Compile Include="GrammarAnalyzer.cs" />
+    <Compile Include="IFormShow.cs" />
     <Compile Include="IMoecraft.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rotate.cs" />
