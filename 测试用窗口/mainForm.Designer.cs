@@ -65,6 +65,7 @@
             this.Text = "控制窗体";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
+            this.Load += new System.EventHandler(this.mainForm_Load);
             this.Shown += new System.EventHandler(this.mainForm_Shown);
             this.ResumeLayout(false);
 

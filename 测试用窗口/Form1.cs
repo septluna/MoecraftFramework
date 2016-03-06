@@ -15,6 +15,7 @@ namespace 测试用窗口
 {
     public partial class Form1 : Form
     {
+
         string filePath = "none";
         public Form1()
         {
@@ -61,9 +62,10 @@ namespace 测试用窗口
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            test();
+            PluginManager pm = new PluginManager();
+            string x = string.Join("", pm.GetPlugins("私聊消息", 0, 0, 0, 0, 495073131, "", 0, "", 0, "", ""));
+            MessageBox.Show(x);
         }
-
         public void test ()
         {
             while (true)

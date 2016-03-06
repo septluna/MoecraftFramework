@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using MoecraftFramework;
 
 namespace 测试用窗口
 {
@@ -72,6 +73,12 @@ namespace 测试用窗口
             closeThread();
             subThread = new Thread(new ThreadStart(ShowMsg));
             subThread.Start();
+        }
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+            //PluginManager pm = new PluginManager();
+            //string x = string.Join("", pm.GetPlugins("私聊消息", 0, 0, 0, 0, 495073131, "", 0, "", 0, "", ""));
+            //MessageBox.Show(x);
         }
     }
 }

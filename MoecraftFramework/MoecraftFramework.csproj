@@ -54,6 +54,7 @@
     <Compile Include="GrammarAnalyzer.cs" />
     <Compile Include="IFormShow.cs" />
     <Compile Include="IMoecraft.cs" />
+    <Compile Include="MoeDllImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rotate.cs" />
     <Compile Include="ScriptInterpreter.cs" />
