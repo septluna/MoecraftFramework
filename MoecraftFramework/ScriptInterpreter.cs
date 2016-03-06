@@ -973,7 +973,7 @@ namespace MoecraftFramework
                 {
                     foreach (var item in temp)
                     {
-                        if (MoeScript.varsdic.ContainsKey(tname))
+                        if (MoeScript.varsdic.ContainsKey(tname + 1))
                         {
                             MoeScript.varsdic[tname + i] = item;
                         }
