@@ -1,13 +1,24 @@
 ﻿#wrapper {
-	margin: 100px auto;
-	width: 800px;
-	height: 500px;
+	text-align: center;
 }
 
 #edit_window {
-	height: 480px;
-	width: 760px;
+	height: 80%;
+	width: 90%;
 	padding: 10px 20px;
 	font-family: Consolas, courier, "微软雅黑", "黑体";
 	font-size: 15px;
+}
+
+#code_hinting {
+	display: none;
+	position: fixed;
+	height: 120px;
+	width: 100px;
+	border: 1px solid #ccc;
+	box-shadow: 3px 3px 5px -1px #444;
+	padding: 6px 10px;
+	font-family: Consolas, courier, "微软雅黑", "黑体";
+	font-size: 15px;
+	text-align: left;
 }

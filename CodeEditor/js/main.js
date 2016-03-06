@@ -1,4 +1,5 @@
 ﻿var editWindow = $('#edit_window');
+var _editWindow = document.getElementById('edit_window');
 var funcNum = rules.function.length;
 
 
@@ -6,8 +7,8 @@ var funcNum = rules.function.length;
  * 代码高亮
  */
 
-function highLight(){
-	
+function highLight() {
+
 }
 
 
@@ -16,8 +17,8 @@ function highLight(){
  * 查错
  */
 
-function syntaxError(){
-	
+function syntaxError() {
+
 }
 
 
@@ -25,74 +26,118 @@ function syntaxError(){
 /**
  * 自动补全代码
  */
+var isHintShow = false;
 var listenInput = false;
+var inputStr = '';
+var startPos;
+var functionsName = '';
+for (var i = 0; i < funcNum; i++){
+	functionsName += rules.function[i].name;
+}
+var hintList = [];
+var findInList = false;
 
-function autoComplete (){
+function autoComplete() {
+
+//	//在行首按下"<"
+//	if (getForwardWord(2) == '\n<' || (getCursorPos() == 1 && getForwardWord() == '<')) {
+//		if (listenInput == false) {
+//			listenInput = true;
+//			window.startPos = getCursorPos();
+//		}
+//	}
+//
+//	//监听输入
+//	if (listenInput == true) {
+//		for (var i = 0; i < funcNum; i++) {
+//			//在第一位找到了关键字
+//			if (getForwardWord(getCursorPos() - startPos).indexOf(rules.function[i].name) == 0) {
+//				for (var j = 0; j < rules.function[i].attr.length; j++) {
+//					insertStr(' ' + rules.function[i].attr[j] + '=""');
+//				}
+//				insertStr('>');
+//
+//				listenInput = false;
+//			}
+//		}
+//	}
 	
-	//在行首按下"<"
-	if (getForwardWord(2) == '\n<' || (getCursorPos() == 1 && getForwardWord() == '<')){
-		if (listenInput == false){
-			listenInput = true;
-			window.startPos = getCursorPos();
+	
+	//前一个字符存在于关键字中
+	if (getForwardWord().length > 0 && functionsName.indexOf(getForwardWord()) != -1 && !findInList){
+		for (var i = 0, j = 0; i < funcNum; i++) {
+			if (rules.function[i].name.indexOf(getForwardWord()) > -1){
+				hintList[j] = rules.function[i].name;
+				j++;
+			}
+		}
+		findInList = true;
+	}
+	
+	//删除提示列表中不匹配的项
+	if (findInList){
+		for (var i = 0; i < hintList.length; i++) {
+			if (hintList[i].indexOf(getForwardWord()) == -1){
+				hintList.splice(i, 1);
+				i = -1;
+			}
 		}
 	}
 
-	//监听输入
-	if (listenInput == true){
-		for (var i = 0; i < funcNum; i++){
-			//在第一位找到了关键字
-			if (getForwardWord(getCursorPos() - startPos).indexOf(rules.function[i].name) == 0){
-				for (var j = 0; j < rules.function[i].attr.length; j++){
-					insertStr(' ' + rules.function[i].attr[j] + '=""');
-				}
-				insertStr('>');
-				
-				listenInput = false;
-			}
-		}	
+	//显示提示框
+	if (hintList.length > 0){
+		$('#code_hinting').css({
+			'display': 'block',
+			'top': getCurCordinate().top + 25,
+			'left': getCurCordinate().left - 20
+		});
+		
+		var hintVal = '';
+		for (var i = 0; i < hintList.length; i++){
+			hintVal += hintList[i] + '<br />';
+		}
+		
+		$('#code_hinting').html(hintVal)
 	}
-}
-
-
-/**
- * 获取光标在短连接输入框中的位置
- * @param inputId 框Id
- * @return {*}
- */
-function getCursorPos(inputId){
-	if (inputId === undefined) inputId = 'edit_window';
+	// 无匹配时隐藏提示框
+	else {
+		$('#code_hinting').css(
+			'display', 'none'
+		);
+		findInList = false;
+	}
 	
-	var inpObj = document.getElementById(inputId);
-	if(navigator.userAgent.indexOf("MSIE") > -1) { // IE
-		var range = document.selection.createRange();
-		range.text = '';
-		range.setEndPoint('StartToStart',inpObj.createTextRange());
-		return range.text.length;
-	} else {
-		return inpObj.selectionStart;
+	
+	
+	
+	for (var i = 0; i < funcNum; i++){
+		//前一个字符存在于关键字中
+		if (rules.function[i].name.indexOf(getForwardWord()) == 0 && !listenInput){
+			
+		}
+		
+		//监听其他输入
+		if (listenInput){
+			inputStr += editWindow.val().substring(startPos, getCursorPos());
+			console.log(inputStr)
+		}
+		
+		
+		
+		//匹配到关键字
+		if (getForwardWord(rules.function[i].name.length).indexOf(rules.function[i].name) != -1 && !isHintShow){
+			isHintShow = true;
+
+		}
 	}
 }
 
 
-/**
- * 获取光标前的字符
- */
-function getForwardWord(length){
-	if (length === undefined) length = 1; // 缺省取1位
-	return editWindow.val().substr(getCursorPos() - length, length);
-}
-
-/**
- * 在光标位置插入字符串
- */
-function insertStr(str){
-	editWindow.val(editWindow.val().substr(0, getCursorPos()) + str + editWindow.val().substr(getCursorPos()))
-}
 
 /**
  * 注册事件
  */
 
-editWindow.on('input', function(){
+editWindow.on('input', function() {
 	autoComplete();
 })
