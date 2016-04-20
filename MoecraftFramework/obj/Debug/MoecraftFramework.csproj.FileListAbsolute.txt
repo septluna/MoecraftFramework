@@ -9,3 +9,7 @@ D:\git crossover\MoecraftFramework\bin\Debug\MoecraftFramework.pdb
 D:\git crossover\MoecraftFramework\bin\Debug\MoecraftFramework.tlb
 D:\git crossover\MoecraftFramework\obj\Debug\MoecraftFramework.dll
 D:\git crossover\MoecraftFramework\obj\Debug\MoecraftFramework.pdb
+C:\Users\septl\Source\Repos\MoecraftFramework\MoecraftFramework\obj\Debug\MoecraftFramework.dll
+C:\Users\septl\Source\Repos\MoecraftFramework\MoecraftFramework\obj\Debug\MoecraftFramework.pdb
+C:\Users\septl\Source\Repos\MoecraftFramework\MoecraftFramework\bin\Debug\MoecraftFramework.dll
+C:\Users\septl\Source\Repos\MoecraftFramework\MoecraftFramework\bin\Debug\MoecraftFramework.pdb

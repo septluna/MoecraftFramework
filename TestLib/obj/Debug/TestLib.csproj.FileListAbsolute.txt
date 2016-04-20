@@ -1,0 +1,7 @@
+C:\Users\septl\Source\Repos\MoecraftFramework\TestLib\bin\Debug\TestLib.dll
+C:\Users\septl\Source\Repos\MoecraftFramework\TestLib\bin\Debug\TestLib.pdb
+C:\Users\septl\Source\Repos\MoecraftFramework\TestLib\bin\Debug\MoecraftFramework.dll
+C:\Users\septl\Source\Repos\MoecraftFramework\TestLib\bin\Debug\MoecraftFramework.pdb
+C:\Users\septl\Source\Repos\MoecraftFramework\TestLib\obj\Debug\TestLib.csprojResolveAssemblyReference.cache
+C:\Users\septl\Source\Repos\MoecraftFramework\TestLib\obj\Debug\TestLib.dll
+C:\Users\septl\Source\Repos\MoecraftFramework\TestLib\obj\Debug\TestLib.pdb

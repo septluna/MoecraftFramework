@@ -21,3 +21,15 @@ D:\git crossover\测试用窗口\obj\Debug\测试用窗口.Form1.resources
 D:\git crossover\测试用窗口\obj\Debug\测试用窗口.Properties.Resources.resources
 D:\git crossover\测试用窗口\obj\Debug\测试用窗口.csproj.GenerateResource.Cache
 D:\git crossover\测试用窗口\obj\Debug\测试用窗口.mainForm.resources
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\bin\Debug\测试用窗口.exe.config
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\obj\Debug\测试用窗口.exe
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\obj\Debug\测试用窗口.pdb
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\bin\Debug\测试用窗口.exe
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\bin\Debug\测试用窗口.pdb
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\bin\Debug\MoecraftFramework.dll
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\bin\Debug\MoecraftFramework.pdb
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\obj\Debug\测试用窗口.csprojResolveAssemblyReference.cache
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\obj\Debug\测试用窗口.Form1.resources
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\obj\Debug\测试用窗口.mainForm.resources
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\obj\Debug\测试用窗口.Properties.Resources.resources
+C:\Users\septl\Source\Repos\MoecraftFramework\测试用窗口\obj\Debug\测试用窗口.csproj.GenerateResource.Cache
