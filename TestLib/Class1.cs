@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MoecraftFramework;
+using System.Runtime.InteropServices;
 
 namespace MoecraftFramework
 {
+    [Guid("C51E4262-62C7-43F5-97E1-D32AD4A5A34F")]
     public class MyPlugin : IMoePlugin
     {
         public string main(string EventType, int subType, int sendTime, int fromGroup, int fromDiscuss, int fromQQ,

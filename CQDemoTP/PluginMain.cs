@@ -11,7 +11,7 @@ namespace MoecraftFramework
     //这里是插件调用的接口，moe平台会自动通过反射调用
     [Guid("453611AF-68E1-467D-9F84-7F3042FBF9E2")]
     public class MyPlugin :IMoePlugin
-    {
+    {           
         #region 默认缺省值
         string EventType = "";
         int subType = 0;

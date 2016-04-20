@@ -57,7 +57,7 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(12, 12);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "节点1";
+            treeNode1.Name = "节点0";
             treeNode1.Text = "毫无卯月";
             treeNode2.Name = "节点0";
             treeNode2.Text = "moecraft插件管理器";
@@ -75,19 +75,19 @@
             this.新增ToolStripMenuItem,
             this.删除ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(137, 76);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 80);
             // 
             // 新增ToolStripMenuItem
             // 
             this.新增ToolStripMenuItem.Name = "新增ToolStripMenuItem";
-            this.新增ToolStripMenuItem.Size = new System.Drawing.Size(136, 36);
+            this.新增ToolStripMenuItem.Size = new System.Drawing.Size(161, 38);
             this.新增ToolStripMenuItem.Text = "新增";
             this.新增ToolStripMenuItem.Click += new System.EventHandler(this.新增ToolStripMenuItem_Click);
             // 
             // 删除ToolStripMenuItem
             // 
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(136, 36);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(161, 38);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 

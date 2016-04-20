@@ -23,7 +23,8 @@ namespace MoecraftFramework
         public string PrivateMsg(int subType, int sendTime, int fromQQ, string msg, int font)
         {
             CQ.cmd = "";//初始化CQ指令  
-            CQ.发送私聊消息(fromQQ, "这是来自全新的托管代码开发库！");            
+            CQ.发送私聊消息(fromQQ, "这是来自全新的托管代码开发库！");      
+                 
             return CQ.cmd;
         }
         /// <summary>

@@ -38,8 +38,9 @@ namespace MoecraftFramework
                             foreach (Type tp in tempTs)
                             {
                                 if (IsValidPlugin(tp))
-                                {   
+                                {
                                     plugins.Add(ab.CreateInstance(tp.FullName));
+                                    MessageBox.Show(tp.Assembly.FullName);
                                 }
                             }
                         }
