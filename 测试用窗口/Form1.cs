@@ -72,7 +72,6 @@ namespace 测试用窗口
 
         private void RecursionTreeControl(XmlNode xmlNode, TreeNodeCollection nodes)
         {
-
             foreach (XmlNode node in xmlNode.ChildNodes)//循环遍历当前元素的子元素集合
             {
                 TreeNode new_child = new TreeNode();//定义一个TreeNode节点对象

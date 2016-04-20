@@ -60,6 +60,7 @@
     <Compile Include="ScriptInterpreter.cs" />
     <Compile Include="SyntaxAnalyzer.cs" />
     <Compile Include="Token.cs" />
+    <Compile Include="UDPCommunication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="septluna.snk" />
